@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeafleX</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <img src="LeafleX Logo.png" alt="LeafleX Logo" />
+    </header>
+
+    <main>
+      <form id="pharmaForm">
+        <label for="medicineName">Medicine Name:</label>
+        <input
+          type="text"
+          id="medicineName"
+          placeholder="e.g. Paracetamol"
+          required
+        />
+
+        <label for="type">Type (e.g., Tablet):</label>
+        <input type="text" id="type" placeholder="e.g. Tablet" required />
+
+        <label for="subName">Sub-Name:</label>
+        <input type="text" id="subName" placeholder="Optional sub-name..." />
+
+        <!-- SIZES -->
+        <label>Sizes (mg):</label>
+        <div id="sizesContainer">
+          <div class="size-container">
+            <input
+              type="text"
+              class="size-input"
+              placeholder="500mg"
+              required
+            />
+            <button
+              type="button"
+              class="remove-btn"
+              onclick="removeSizeInput(this)"
+            >
+              X
+            </button>
+          </div>
+        </div>
+        <button type="button" class="add-btn" onclick="addSizeInput()">
+          + Add Size
+        </button>
+
+        <!-- 1) What is [MedicineName]? -->
+        <label>1- What is [Medicine Name]?</label>
+        <div id="whatIsContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('whatIsContainer', false)"
+        >
+          + Paragraph
+        </button>
+
+        <!-- 2) usage -->
+        <label>2- What is [Medicine Name] used for?</label>
+        <div id="usageContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('usageContainer', false)"
+        >
+          + Paragraph
+        </button>
+
+        <!-- Warnings -->
+        <label>Warnings And Precautions</label>
+        <div id="warningsContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('warningsContainer', false)"
+        >
+          + Paragraph
+        </button>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('warningsContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <!-- 3) How to take + MULTIPLE TABLES feature -->
+        <label>3- How to Take [Medicine Name]:</label>
+        <div id="howToTakeContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('howToTakeContainer', false)"
+        >
+          + Paragraph
+        </button>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('howToTakeContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <!-- Where user-chosen tables will appear -->
+        <button type="button" class="add-btn" onclick="openTableEditor()">
+          + Table
+        </button>
+        <div id="allTablesContainer"></div>
+        <!-- multiple tables -->
+
+        <!-- doNotTake -->
+        <label>Do not take [Medicine Name] if:</label>
+        <div id="doNotTakeContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('doNotTakeContainer', false)"
+        >
+          + Paragraph
+        </button>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('doNotTakeContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <!-- sideEffects -->
+        <label>4- Possible side effects:</label>
+        <div id="sideEffectsContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('sideEffectsContainer', false)"
+        >
+          + Paragraph
+        </button>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('sideEffectsContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <label>Very Common Side Effects:</label>
+        <div id="veryCommonContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('veryCommonContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <label>Common Side Effects:</label>
+        <div id="commonContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('commonContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <label>Very Rare Side Effects:</label>
+        <div id="veryRareContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('veryRareContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <label>Pregnancy, Breast-feeding, and Fertility:</label>
+        <div id="pregnancyBreastfeedingFertilityContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('pregnancyBreastfeedingFertilityContainer', false)"
+        >
+          + Paragraph
+        </button>
+
+        <!-- 5) Storage -->
+        <label>5- How to store [Medicine Name]?</label>
+        <div id="storageContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('storageContainer', false)"
+        >
+          + Paragraph
+        </button>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('storageContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <!-- 6) Contents -->
+        <label>6- Contents of the pack and other information:</label>
+        <div id="contentsContainer"></div>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('contentsContainer', false)"
+        >
+          + Paragraph
+        </button>
+        <button
+          type="button"
+          class="add-btn"
+          onclick="addEditorBlock('contentsContainer', true)"
+        >
+          + Bullet
+        </button>
+
+        <!-- 7) Instructions with images -->
+        <label>7- Instructions For Use</label>
+        <div id="instructionsForUseContainer"></div>
+        <button type="button" class="add-btn" onclick="addInstructionStep()">
+          + Instruction Step
+        </button>
+
+        <label for="revisionDate">Revision Date (Month/Year):</label>
+        <input
+          type="text"
+          id="revisionDate"
+          placeholder="November/2022"
+          required
+        />
+
+        <button type="button" onclick="openValidationPortal()">
+          Validate XML at Leaflet Healthcare
+        </button>
+        <button type="button" onclick="generateXML()">Generate XML</button>
+      </form>
+
+      <pre id="xmlOutput"></pre>
+      <button id="downloadBtn" onclick="downloadXML()">Download XML</button>
+    </main>
+
+    <!-- TABLE EDITOR MODAL (like your screenshot) -->
+    <div id="tableModalOverlay" style="display: none">
+      <div id="tableModal">
+        <h2 style="margin-bottom: 10px; color: #4169e1">Add Table</h2>
+        <label for="rowsInput">Number of rows:</label>
+        <input type="number" id="rowsInput" min="1" max="30" value="3" />
+        <label for="colsInput">Number of columns:</label>
+        <input type="number" id="colsInput" min="1" max="30" value="5" />
+        <br />
+        <button onclick="createNewTable()">Create</button>
+        <button onclick="closeTableEditor()">Cancel</button>
+      </div>
+    </div>
+    <script src="encryptedscript.js"></script>
+  </body>
+</html>
