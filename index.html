@@ -1,270 +1,550 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeafleX</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header>
-      <img src="LeafleX Logo.png" alt="LeafleX Logo" />
-    </header>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 160vh; /* Increased page height */
+        }
 
-    <main>
-      <form id="pharmaForm">
-        <label for="medicineName">Medicine Name:</label>
-        <input
-          type="text"
-          id="medicineName"
-          placeholder="e.g. Paracetamol"
-          required
-        />
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    background-color: #ffffff;
+}
 
-        <label for="type">Type (e.g., Tablet):</label>
-        <input type="text" id="type" placeholder="e.g. Tablet" required />
+.nav-links {
+    display: flex;
+    justify-content: flex-start; /* Align links more to the left */
+    gap: 20px;
+    margin-right: 500px; /* Adjust this value to move links slightly to the left */
+}
 
-        <label for="subName">Sub-Name:</label>
-        <input type="text" id="subName" placeholder="Optional sub-name..." />
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
 
-        <!-- SIZES -->
-        <label>Sizes (mg):</label>
-        <div id="sizesContainer">
-          <div class="size-container">
-            <input
-              type="text"
-              class="size-input"
-              placeholder="500mg"
-              required
-            />
-            <button
-              type="button"
-              class="remove-btn"
-              onclick="removeSizeInput(this)"
-            >
-              X
-            </button>
-          </div>
-        </div>
-        <button type="button" class="add-btn" onclick="addSizeInput()">
-          + Add Size
-        </button>
+.navbar a:hover {
+    color: #3366ff;
+}
 
-        <!-- 1) What is [MedicineName]? -->
-        <label>1- What is [Medicine Name]?</label>
-        <div id="whatIsContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('whatIsContainer', false)"
-        >
-          + Paragraph
-        </button>
+.navbar .buttons a {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid #3366ff;
+    color: #3366ff;
+    transition: all 0.3s;
+}
 
-        <!-- 2) usage -->
-        <label>2- What is [Medicine Name] used for?</label>
-        <div id="usageContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('usageContainer', false)"
-        >
-          + Paragraph
-        </button>
+.navbar .buttons a:first-child {
+    background-color: #3366ff;
+    color: #ffffff;
+    margin-right: 10px;
+}
 
-        <!-- Warnings -->
-        <label>Warnings And Precautions</label>
-        <div id="warningsContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('warningsContainer', false)"
-        >
-          + Paragraph
-        </button>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('warningsContainer', true)"
-        >
-          + Bullet
-        </button>
+.navbar .buttons a:hover {
+    background-color: #3366ff;
+    color: #ffffff;
+    transform: scale(1.1);
+}
 
-        <!-- 3) How to take + MULTIPLE TABLES feature -->
-        <label>3- How to Take [Medicine Name]:</label>
-        <div id="howToTakeContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('howToTakeContainer', false)"
-        >
-          + Paragraph
-        </button>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('howToTakeContainer', true)"
-        >
-          + Bullet
-        </button>
 
-        <!-- Where user-chosen tables will appear -->
-        <button type="button" class="add-btn" onclick="openTableEditor()">
-          + Table
-        </button>
-        <div id="allTablesContainer"></div>
-        <!-- multiple tables -->
+.logo img {
+    height: 50px;
+    animation: float 3s infinite ease-in-out;
+}
 
-        <!-- doNotTake -->
-        <label>Do not take [Medicine Name] if:</label>
-        <div id="doNotTakeContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('doNotTakeContainer', false)"
-        >
-          + Paragraph
-        </button>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('doNotTakeContainer', true)"
-        >
-          + Bullet
-        </button>
+/* Floating Logo Animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
 
-        <!-- sideEffects -->
-        <label>4- Possible side effects:</label>
-        <div id="sideEffectsContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('sideEffectsContainer', false)"
-        >
-          + Paragraph
-        </button>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('sideEffectsContainer', true)"
-        >
-          + Bullet
-        </button>
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px;
+            background-color: #ffffff;
+            position: relative;
+            flex: 1;
+        }
+        .hero h1 {
+            font-size: 60px;
+            color: #4A90E2;
+            margin-bottom: 10px;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-top: 20px; /* Adjusted for placement below the button */
+            color: #555;
+            z-index: 2;
+            position: relative;
+        }
+        .hero .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #4A90E2; /* Blue color */
+            color: #fff; /* White text */
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 12px; /* Rounded corners */
+            border: 2px solid black; /* Black border */
+            text-align: center;
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+            margin-top: 550px; /* Adjusted for better alignment */
+        }
+        .hero .button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+            transform: scale(1.05); /* Slight enlargement on hover */
+        }
 
-        <label>Very Common Side Effects:</label>
-        <div id="veryCommonContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('veryCommonContainer', true)"
-        >
-          + Bullet
-        </button>
+        /* Background Icon Styles */
+        .background-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.9; /* Darker background */
+            max-width: 600px;
+            z-index: 2;
+        }
 
-        <label>Common Side Effects:</label>
-        <div id="commonContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('commonContainer', true)"
-        >
-          + Bullet
-        </button>
+        /* Document Icon as Background */
+        .icon-right {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 1000px; /* Larger to act as a background */
+            z-index: 1; /* Behind the background-icon */
+            opacity: 0.5; /* Make it subtle as a background */
+        }
 
-        <label>Very Rare Side Effects:</label>
-        <div id="veryRareContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('veryRareContainer', true)"
-        >
-          + Bullet
-        </button>
+        /* Top Left Icon */
+        .icon-left {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            max-width: 300px;
+            z-index: 3;
+        }
 
-        <label>Pregnancy, Breast-feeding, and Fertility:</label>
-        <div id="pregnancyBreastfeedingFertilityContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('pregnancyBreastfeedingFertilityContainer', false)"
-        >
-          + Paragraph
-        </button>
+        /* Bottom Right Icon */
+        .arrow-left {
+            position: absolute;
+            bottom: -8%;
+            right: 5%;
+            max-width: 300px;
+            z-index: 3;
+        }
 
-        <!-- 5) Storage -->
-        <label>5- How to store [Medicine Name]?</label>
-        <div id="storageContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('storageContainer', false)"
-        >
-          + Paragraph
-        </button>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('storageContainer', true)"
-        >
-          + Bullet
-        </button>
+        /* New Arrow */
+        .arrow-center1 {
+            position: absolute;
+            top: 47%;
+            left: 24%;
+            transform: translate(-50%, -50%);
+            max-width: 230px;
+            z-index: 4;
+        }
 
-        <!-- 6) Contents -->
-        <label>6- Contents of the pack and other information:</label>
-        <div id="contentsContainer"></div>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('contentsContainer', false)"
-        >
-          + Paragraph
-        </button>
-        <button
-          type="button"
-          class="add-btn"
-          onclick="addEditorBlock('contentsContainer', true)"
-        >
-          + Bullet
-        </button>
+        .arrow-center2 {
+            position: absolute;
+            top: 78%;
+            right: 15%;
+            transform: translate(-50%, -50%);
+            max-width: 230px;
+            z-index: 4;
+        }
 
-        <!-- 7) Instructions with images -->
-        <label>7- Instructions For Use</label>
-        <div id="instructionsForUseContainer"></div>
-        <button type="button" class="add-btn" onclick="addInstructionStep()">
-          + Instruction Step
-        </button>
+          /* Footer */
+/* Footer */
+.footer {
+    background-color: #4A90E2;
+    color: white; /* White text for better contrast */
+    text-align: left; /* Align text to the left */
+    padding: 20px; /* Adjusted padding for clean layout */
+    margin-top: auto;
+    border-top-left-radius: 30px; /* Rounded top-left corner */
+    border-top-right-radius: 30px; /* Rounded top-right corner */
+}
 
-        <label for="revisionDate">Revision Date (Month/Year):</label>
-        <input
-          type="text"
-          id="revisionDate"
-          placeholder="November/2022"
-          required
-        />
+.footer p {
+    font-size: 12px; /* Smaller font for copyright */
+    margin: 10px 0;
+}
 
-        <button type="button" onclick="openValidationPortal()">
-          Validate XML at Leaflet Healthcare
-        </button>
-        <button type="button" onclick="generateXML()">Generate XML</button>
-      </form>
+.footer a {
+    color: white; /* White text for links */
+    text-decoration: none;
+    font-size: 10px; /* Adjust font size */
+}
 
-      <pre id="xmlOutput"></pre>
-      <button id="downloadBtn" onclick="downloadXML()">Download XML</button>
-    </main>
+.social-icons {
+    margin: 15px 0; /* Adjusted spacing for better visual balance */
+    display: flex;
+    justify-content: flex-start; /* Align icons to the left */
+    gap: 20px; /* Space between icons */
+}
 
-    <!-- TABLE EDITOR MODAL (like your screenshot) -->
-    <div id="tableModalOverlay" style="display: none">
-      <div id="tableModal">
-        <h2 style="margin-bottom: 10px; color: #4169e1">Add Table</h2>
-        <label for="rowsInput">Number of rows:</label>
-        <input type="number" id="rowsInput" min="1" max="30" value="3" />
-        <label for="colsInput">Number of columns:</label>
-        <input type="number" id="colsInput" min="1" max="30" value="5" />
-        <br />
-        <button onclick="createNewTable()">Create</button>
-        <button onclick="closeTableEditor()">Cancel</button>
-      </div>
+.social-icons a {
+    display: inline-block;
+    width: 16px; /* Icon size */
+    height: 16px;
+    background-color: white; /* White background for icons */
+    border-radius: 50%; /* Make the icons circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.social-icons img {
+    width: 30px; /* Adjust icon size inside the circle */
+    height: 29px;
+
+}
+
+
+        .subscribe-now {
+            padding: 10px 20px; /* Adjust padding */
+            font-size: 16px; /* Adjust font size */
+            font-weight: bold;
+            color: black; /* Text color */
+            background-color: transparent; /* Transparent background */
+            border: 2px solid black; /* Black border */
+            border-radius: 10px; /* Rounded corners */
+            text-decoration: none;
+            transition: all 0.2s ease-in-out; /* Smooth transition effect */
+        }
+
+        .subscribe-now:hover {
+            background-color: rgb(255, 255, 255); /* Black background on hover */
+            color: white; /* White text on hover */
+            transform: scale(1.1); /* Slight enlargement on hover */
+        }
+
+        /* Services Section */
+        .services {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #eef2f3;
+        }
+        .services h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .services .service {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .services .service-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .services .service-card:hover {
+            transform: translateY(-10px);
+        }
+        .services .service-card img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Poppins", sans-serif;
+        }
+        
+        .about-us {
+          display: flex;
+          align-items: center;
+          height: 100vh;
+          width: 100%;
+          padding: 90px 0;
+          background: #fff;
+        }
+        
+        .pic {
+          height: 400px;
+          width: 500px;
+          border-radius: 12px;
+          margin-right: 100px;
+
+        }
+        
+        .about {
+          width: 1130px;
+          max-width: 85%;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+        }
+        
+        .text {
+          width: 540px;
+        }
+        
+        .text h2 {
+          color: #333;
+          font-size: 80px;
+          font-weight: 600;
+          margin-bottom: 10px;
+          margin-right: 20px;
+        }
+        
+        .text h5 {
+          color: #333;
+          font-size: 22px;
+          font-weight: 500;
+          margin-bottom: 20px;
+        }
+        
+        span {
+          color: #4070f4;
+        }
+        
+        .text p {
+          color: #333;
+          font-size: 18px;
+          line-height: 25px;
+          letter-spacing: 1px;
+          text-align: left;
+        }
+        
+        .data {
+          margin-top: 30px;
+        }
+        
+        .hire {
+          font-size: 18px;
+          background: #4070f4;
+          color: #fff;
+          text-decoration: none;
+          border: none;
+          padding: 12px 25px;
+          border-radius: 6px;
+          transition: 0.5s;
+        }
+        
+        .hire:hover {
+          background: #000;
+        }
+          
+        * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: "Poppins", sans-serif;
+            }
+            
+            .about-us {
+              display: flex;
+              align-items: center;
+              height: 100vh;
+              width: 100%;
+              padding: 90px 0;
+              background: #fff;
+            }
+            
+            .pic {
+              height: 400px;
+              width: 500px;
+              border-radius: 12px;
+              margin-right: 100px;
+    
+            }
+            
+            .about {
+              width: 1130px;
+              max-width: 85%;
+              margin: 0 auto;
+              display: flex;
+              align-items: center;
+              justify-content: space-around;
+            }
+            
+            .text {
+              width: 540px;
+            }
+            
+            .text h2 {
+              color: #4169e1;
+              font-size: 80px;
+              font-weight: 600;
+              margin-bottom: 10px;
+              margin-right: 20px;
+            }
+            
+            .text h5 {
+              color: #333;
+              font-size: 22px;
+              font-weight: 500;
+              margin-bottom: 20px;
+            }
+            
+            span {
+              color: #4070f4;
+            }
+            
+            .text p {
+              color: #333;
+              font-size: 18px;
+              line-height: 25px;
+              letter-spacing: 1px;
+              text-align: left;
+            }
+            
+            .data {
+              margin-top: 30px;
+            }
+            
+            .hire {
+              font-size: 18px;
+              background: #4070f4;
+              color: #fff;
+              text-decoration: none;
+              border: none;
+              padding: 12px 25px;
+              border-radius: 6px;
+              transition: 0.5s;
+            }
+            
+            .hire:hover {
+              background: #000;
+            }
+
+        .bottom-tagline {
+            position: absolute; /* Position it absolutely */
+            top: 390px;
+            bottom: 0px; /* Adjust how far from the bottom */
+            left: 12%; /* Center horizontally */
+            transform: translateX(-50%); /* Center it precisely */
+            z-index: 3; /* Ensure it appears above other elements */
+            font-size: 20px; /* Optional: adjust font size */
+            color: #555; /* Optional: maintain consistency */
+        }
+
+        /* New Bottom Button Container */
+
+
+
+    </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+        <img src="Visuals\LeafleX Logo.png" alt="LeafleX Logo">
     </div>
-    <script src="encryptedscript.js"></script>
-  </body>
-</html>
+    <div class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="Profile.html">Profile</a>
+        <a href="Price.html">Plans & Pricing</a>
+        <a href="Help.html">Help & Support</a>
+        <a href="AboutUs.html">About Us</a>
+    </div>
+    
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="Visuals\Screenshot_2024-12-19_173419-removebg-preview.png" alt="Document Icon" class="icon-right">
+        <img src="Visuals\WhatsApp_Image_2024-12-18_at_00.08.31_e5f57f1c-removebg-preview (1).png" alt="Background Icon" class="background-icon">
+        <p class="bottom-tagline">Papers Are History. LeafleX Is the Future.</p>
+        <a href="Get Started.html" class="button">Get Started</a>
+        <img src="Visuals\Screenshot_2024-12-19_183036-removebg-preview.png" alt="Top Left Icon" class="icon-left">
+        <img src="Visuals\Screenshot_2024-12-19_175852-removebg-preview.png" alt="Bottom Right Icon" class="arrow-left">
+        <img src="Visuals\arrow-removebg-preview.png" alt="Arrow Center" class="arrow-center1">
+        <img src="Visuals\arrow-removebg-preview.png" alt="Arrow Center" class="arrow-center2">
+    </section>
+            
+            <section class="about-us">
+              <div class="about">
+                <img src="Visuals\LeafletHome2.png" class="pic" />
+                <div class="text">
+                  <h2>Our Services</h2>
+                  <p>LeafleX provides an innovative digital compliance service that helps pharmaceutical companies transition from traditional paper-based product leaflets to machine-readable digital formats (XML) compliant with HL7 FHIR standards and local regulatory requirements. Designed for small-to-mid manufacturers, it offers an affordable, user-friendly solution that automates data conversion, ensures accuracy with built-in validation, and reduces operational inefficiencies. By streamlining workflows and supporting digital transformation, LeafleX empowers companies to meet regulatory demands effortlessly and cost-effectively.</p>
+                  <div class="data">
+                  
+                  </div>
+                </div>
+              </div>
+            </section>
+          
+  
+        
+                
+                <section class="about-us">
+                  <div class="about">
+                    <img src="Visuals\Leaflet HomePicture.jpeg" class="pic" />
+                    <div class="text">
+                      <h2>Why Choose Leaflex?</h2>
+                      <div class="data">
+<p>Efficiency: Automates manual processes, reducing errors and saving time.</p>
+    <p>Compliance: Built with regulatory requirements in mind for effortless auditing.</p>
+   <p> Ease of Use: An intuitive interface designed for teams of all technical backgrounds.</p>                      
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                      
+    <!-- Footer -->
+   <!-- Footer -->
+<footer class="footer">
+    <p>Follow us on:</p>
+    <div class="social-icons">
+        <img src="Visuals\instagram.png" alt=""></a>
+        <img src="Visuals\Facebook.png" alt=""></a>
+        <img src="Visuals\twitter.png" alt=""></a>
+        <img src="Visuals\linkedIn.png" alt=""></a>
+    </div>
+    <p>&copy; 2025 LeafleX. All rights reserved.</p>
+</footer>
+              </body>
+ 
+            </html>

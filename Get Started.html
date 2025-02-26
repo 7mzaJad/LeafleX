@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafleX - XML Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #ffffff;
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            transition: background 0.3s ease-in-out;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #3366ff;
+        }
+        .navbar .buttons a {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #3366ff;
+            color: #3366ff;
+            transition: all 0.3s;
+        }
+        .navbar .buttons a:first-child {
+            background-color: #3366ff;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .navbar .buttons a:hover {
+            background-color: #3366ff;
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .logo img {
+            height: 50px;
+            animation: float 3s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        .hero {
+            padding: 100px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #3366ff;
+            animation: slideIn 1.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #060606;
+            max-width: 1000px;
+            margin: 20px auto;
+            font-weight: 600;
+        }
+        .cta-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 80px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            border: 2px solid #3366ff;
+            color: #3366ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .cta-button:hover {
+            background-color: #3366ff;
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 50px;
+        }
+        .footer img {
+            height: 100px;
+            width: 250px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .hero a {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 19px 80px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            border: 2px solid #3366ff;
+            color: #3366ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+            background-color: #3366ff;
+            color: #fff;
+            transform: scale(1.1);
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+
+        }
+      
+          
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="Visuals\LeafleX Logo.png" alt="LeafleX Logo">
+            </div>
+            
+            <div class="buttons">
+                <a href="LogIn Page.html">Log In</a>
+                <a href="SignUp Page.html">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+    <section class="hero">
+        <h1>Your all-in-one platform for XML automation and validation.</h1>
+        <p>LeafleX simplifies pharmaceutical compliance by providing seamless XML conversion, real-time validation, and effortless regulatory submissions—all in one easy-to-use platform.</p>
+        
+            <a href="LogIn Page.html">Log In</a>
+            <a href="SignUp Page.html">Sign Up</a>
+  
+    </section>
+    <footer class="footer">
+        <img src="Visuals\LeafleX Logo2.png" alt="LeafleX Logo">
+        <img src="Visuals\LeafleX Logo2.png" alt="LeafleX Logo">
+    </footer>
+</body>
+</html>

@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>About Us - Leaflex</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+  
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f0f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .about-us {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 120px 20px; 
+      background: #4169e1;
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .about-image {
+      flex: 1;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .about-image img {
+      display: block;
+      margin: 10px auto;
+      max-width: 400px;
+    }
+
+    .about-content {
+      flex: 1;
+      padding: 0 20px;
+    }
+
+    .about-content h2 {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      margin-top: 80px; /* Moves "About Us" down */
+    }
+
+.about-content p {
+    font-size: 1rem;
+      margin-bottom: 15px;
+      line-height: 1.8;
+    margin-top: 15px; /* Moves all paragraphs down */
+}
+
+
+    .about-content h5 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+
+    .about-content ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 20px;
+    }
+
+    .about-content ul li {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .about-content ul li::before {
+      content: "\2714";
+      margin-right: 10px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .contact-info p {
+      font-size: 1rem;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: white;
+      color: #4169e1;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .cta-button:hover {
+      background: #333;
+      color: white;
+    }
+
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start; /* Align links more to the left */
+    gap: 20px;
+    margin-right: 500px; /* Adjust this value to move links slightly to the left */
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #3366ff;
+}
+
+.navbar .buttons a {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid #3366ff;
+    color: #3366ff;
+    transition: all 0.3s;
+}
+
+.navbar .buttons a:first-child {
+    background-color: #3366ff;
+    color: #ffffff;
+    margin-right: 10px;
+}
+
+.navbar .buttons a:hover {
+    background-color: #3366ff;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+
+.logo img {
+    height: 50px;
+    animation: float 3s infinite ease-in-out;
+}
+
+/* Floating Logo Animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+    .subscribe-now {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+      background-color: transparent;
+      border: 2px solid black;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .subscribe-now:hover {
+      background-color: rgb(255, 255, 255);
+      color: white;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+        <img src="Visuals\LeafleX Logo.png" alt="LeafleX Logo">
+    </div>
+    <div class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="Profile.html">Profile</a>
+        <a href="Price.html">Plans & Pricing</a>
+        <a href="Help.html">Help & Support</a>
+        <a href="AboutUs.html">About Us</a>
+    </div>
+    
+</nav>
+
+  <section class="about-us">
+    <div class="container">
+      <div class="about-image">
+        <img src="Visuals\About Us.png" alt="Leaflet Image" />
+      </div>
+
+      <div class="about-content">
+        <h2>About Us</h2>
+        <p>
+          At Leaflex, we’re dedicated to transforming pharmaceutical compliance into a seamless, efficient process. Our team combines
+          technological expertise and industry knowledge to develop solutions that redefine standards and enhance productivity.
+        </p>
+        <h5>Who We Are</h5>
+        <p>
+          Leaflex is a cutting-edge platform designed specifically for pharmaceutical manufacturers. Our mission is to simplify compliance
+          processes, ensuring every document adheres to regulatory standards while saving valuable time and resources.
+        </p>
+        <h5>What We Do</h5>
+        <p>
+          We offer an innovative tool that converts traditional paper-based pharmaceutical leaflets into machine-readable XML files. With
+          compliance at its core, Leaflex ensures outputs are fully aligned with Jordanian Food and Drug Administration (JFDA) requirements.
+        </p>
+        <h5>Contact Us</h5>
+        <div class="contact-info">
+          <p>📧 Email: <a href="mailto:support@leaflex.com">support@leaflex.com</a></p>
+          <p>📞 Phone: +962 799634207</p>
+        </div>
+        <a href="FactoryInfoPage.html" class="cta-button">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
