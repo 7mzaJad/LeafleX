@@ -517,8 +517,20 @@ document.addEventListener("keydown", (event) => {
     const medicineName = document.getElementById("medicineName").value.trim();
     const type = document.getElementById("type").value.trim();
     const subName = document.getElementById("subName").value.trim();
-    const revisionDate = document.getElementById("revisionDate").value.trim();
 
+    /*===================================== the new date case =====================================*/
+
+    const revisionDate = document.getElementById("revisionDate").value.trim();
+    
+    // Validate date format matches ISO 8601
+    const iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/;
+    if (!iso8601Regex.test(revisionDate)) {
+      alert("Please enter date in ISO 8601 format (e.g. 2025-07-18T08:30:00+02:00)");
+      return;
+    }
+
+
+  /*===============================================================================================*/
     // Collect sections
     const whatIsHTML = collectEditorSection("whatIsContainer");
     const usageHTML = collectEditorSection("usageContainer");
