@@ -3,124 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign up for a LeafleX business account">
+    <meta name="keywords" content="LeafleX, business account, sign up">
+    <meta name="author" content="LeafleX">
+    <meta name="theme-color" content="#4169e1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>LeafleX - Sign Up</title>
+    <!-- Update Firebase SDK versions -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBM0UsTyDxksjHn33CRt9KhRfOSe-qP8N0",
+            authDomain: "leaflex.firebaseapp.com", 
+            projectId: "leaflex",
+            storageBucket: "leaflex.firebasestorage.app",
+            messagingSenderId: "888598349601",
+            appId: "1:888598349601:web:e65c0de725974463cce060",
+            measurementId: "G-ZH1QS3W4ZD"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Handle form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('signup-form');
+            const inputs = form.querySelectorAll('input');
+            
+            // Add input validation
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    validateInput(input);
+                });
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const companyName = document.getElementById('companyName').value.trim();
+                const contactPerson = document.getElementById('contactPerson').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const errorMessage = document.getElementById('error-message');
+
+                // Form validation checks...
+                if (!email || !password || !confirmPassword || !companyName || !contactPerson || !phone) {
+                    errorMessage.innerText = "Please fill in all fields";
+                    return;
+                }
+
+                try {
+                    // Ensure button is disabled to prevent duplicate submissions
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    errorMessage.innerText = "";
+
+                    // Create user account
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+                    // Store additional user data in Firestore
+                    await setDoc(doc(db, 'users', userCredential.user.uid), {
+                        companyName,
+                        email,
+                        contactPerson,
+                        phone,
+                        createdAt: new Date(),
+                        lastUpdated: new Date(),
+                        status: 'active'
+                    });
+
+                    console.log("User created successfully!");
+
+                    // Redirect
+                    window.location.href = 'LogIn Page.html?registered=true';
+
+                } catch (error) {
+                    console.error("Signup error:", error);
+                    errorMessage.innerText = error.message;
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    submitButton.disabled = false;
+                }
+            });
+        });
+
+        // Input validation function
+        function validateInput(input) {
+            const errorMessage = document.getElementById('error-message');
+            switch(input.id) {
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value)) {
+                        input.style.borderColor = 'red';
+                        errorMessage.innerText = "Please enter a valid email address";
+                    } else {
+                        input.style.borderColor = '#ddd';
+                        errorMessage.innerText = "";
+                    }
+                    break;
+                case 'password':
+                    if (input.value.length < 8) {
+                        input.style.borderColor = 'red';
+                        errorMessage.innerText = "Password must be at least 8 characters long";
+                    } else if (!/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])/.test(input.value)) {
+                        input.style.borderColor = 'red';
+                        errorMessage.innerText = "Password must contain uppercase, lowercase letters and numbers";
+                    } else {
+                        input.style.borderColor = '#ddd';
+                        errorMessage.innerText = "";
+                    }
+                    break;
+                case 'phone':
+                    const phoneRegex = /^\+?[\d\s-]{10,}$/;
+                    if (!phoneRegex.test(input.value)) {
+                        input.style.borderColor = 'red';
+                        errorMessage.innerText = "Please enter a valid phone number";
+                    } else {
+                        input.style.borderColor = '#ddd';
+                        errorMessage.innerText = "";
+                    }
+                    break;
+                default:
+                    if (!input.value.trim()) {
+                        input.style.borderColor = 'red';
+                    } else {
+                        input.style.borderColor = '#ddd';
+                    }
+            }
+        }
+    </script>
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         @import url('https://fonts.googleapis.com/css?family=Rubik:400,500&display=swap');
-
-        body {
+        
+        body { 
             font-family: 'Rubik', sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
         }
-
-        .container {
-            display: flex;
+        .container { 
+            display: flex; 
             height: 100vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
-
-        .left {
-            overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            justify-content: center;
-            animation-name: left;
-            animation-duration: 1s;
-            animation-fill-mode: both;
-            animation-delay: 1s;
+        .left { 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            padding: 40px; 
+            width: 440px;
+            background-color: white;
         }
-
-        .right {
-            flex: 1;
-            background-color: black;
-            transition: 1s;
-            background-image: url(BackgroundImage_SignUp.png);
+        .right { 
+            flex: 1; 
+            background-color: black; 
+            background-image: url(BackgroundImage_SignUp.png); 
             background-size: cover;
-            background-repeat: no-repeat;
             background-position: center;
+            position: relative;
         }
-
-        .header > h2 {
-            margin: 0;
+        .right::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .header > h2 { 
+            margin: 0; 
             color: #4169e1;
+            font-size: 28px;
+            margin-bottom: 10px;
         }
-
-        .header > h4 {
-            margin-top: 10px;
-            font-weight: normal;
-            font-size: 15px;
-            color: #4169e1;
+        .header > h4 { 
+            margin-top: 10px; 
+            font-size: 16px; 
+            color: #666;
+            line-height: 1.4;
         }
-
-        .form {
-            max-width: 80%;
-            display: flex;
+        .form { 
+            max-width: 100%;
+            width: 100%;
+            display: flex; 
             flex-direction: column;
+            margin-top: 30px;
         }
-
-        .form > p {
-            text-align: right;
-        }
-
-        .form > p > a {
-            color: #000;
-            font-size: 14px;
-        }
-
-        .form-field {
-            height: 46px;
-            padding: 0 16px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-family: 'Rubik', sans-serif;
-            outline: 0;
-            transition: .2s;
+        .form-field { 
+            height: 46px; 
+            padding: 0 16px; 
+            border: 2px solid #ddd; 
+            border-radius: 8px; 
             margin-top: 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
-
         .form-field:focus {
-            border-color: #0f7ef1;
+            outline: none;
+            border-color: #4169e1;
+            box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.1);
         }
-
-        .form > button {
-            padding: 12px 10px;
-            border: 0;
-            background: linear-gradient(to right, #1d1d1d 0%,#4169e1 100%); 
-            border-radius: 3px;
-            margin-top: 10px;
+        .form > button { 
+            padding: 14px 10px;
+            background: linear-gradient(to right, #1d1d1d, #4169e1);
+            border: none;
+            border-radius: 8px;
+            margin-top: 25px;
             color: #fff;
-            letter-spacing: 1px;
-            font-family: 'Rubik', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .form > button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
+        }
+        .form > button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .thank-you { 
+            display: none; 
+            text-align: center; 
+            margin-top: 20px; 
+            color: #4CAF50;
+            font-size: 18px;
+            padding: 10px;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 8px;
+        }
+        #error-message {
+            color: #ff3333;
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            min-height: 20px;
         }
 
-        .animation {
-            animation-name: move;
-            animation-duration: .4s;
-            animation-fill-mode: both;
-            animation-delay: 2s;
-        }
-
-        @keyframes move {
-            0% {
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-40px);
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
             }
-            100% {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
+            .left {
+                width: 100%;
+                padding: 20px;
             }
-        }
-
-        @keyframes left {
-            0% {
-                opacity: 0;
-                width: 0;
+            .right {
+                display: none;
             }
-            100% {
-                opacity: 1;
-                padding: 20px 40px;
-                width: 440px;
+            .form {
+                max-width: 100%;
             }
         }
     </style>
@@ -129,18 +277,20 @@
     <div class="container">
         <div class="left">
             <div class="header">
-                <h2 class="animation a1">Create Your LeafleX Account</h2>
-                <h4 class="animation a2">Sign up to get started with your business account</h4>
+                <h2>Create Your LeafleX Account</h2>
+                <h4>Sign up to get started with your business account</h4>
             </div>
-            <div class="form">
-                <input type="text" class="form-field animation a3" placeholder="Company Name" required>
-                <input type="email" class="form-field animation a4" placeholder="Business Email" required>
-                <input type="text" class="form-field animation a5" placeholder="Contact Person Name" required>
-                <input type="text" class="form-field animation a6" placeholder="Phone Number" required>
-                <input type="password" class="form-field animation a7" placeholder="Password" required>
-                <input type="password" class="form-field animation a8" placeholder="Confirm Password" required>
-                <button class="animation a9" onclick="window.location.href='FactoryInfoPage.html'" style="cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.2)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">SIGN UP</button>
-            </div>
+            <form id="signup-form" class="form" novalidate>
+                <input type="text" id="companyName" class="form-field" placeholder="Company Name" required>
+                <input type="email" id="email" class="form-field" placeholder="Business Email" required>
+                <input type="text" id="contactPerson" class="form-field" placeholder="Contact Person Name" required>
+                <input type="tel" id="phone" class="form-field" placeholder="Phone Number (e.g., +1234567890)" required>
+                <input type="password" id="password" class="form-field" placeholder="Password (min 8 characters)" required>
+                <input type="password" id="confirmPassword" class="form-field" placeholder="Confirm Password" required>
+                <button type="submit">SIGN UP</button>
+            </form>
+            <p id="error-message"></p>
+            <p id="thank-you" class="thank-you">Account created successfully! Redirecting to login...</p>
         </div>
         <div class="right"></div>
     </div>

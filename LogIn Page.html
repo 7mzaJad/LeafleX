@@ -144,6 +144,18 @@
             border: 1px solid #2d79f3;
         }
 
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #2d79f3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -154,36 +166,89 @@
             to { opacity: 1; transform: translateX(0); }
         }
     </style>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBM0UsTyDxksjHn33CRt9KhRfOSe-qP8N0",
+            authDomain: "leaflex.firebaseapp.com",
+            projectId: "leaflex",
+            storageBucket: "leaflex.firebasestorage.app",
+            messagingSenderId: "888598349601",
+            appId: "1:888598349601:web:e65c0de725974463cce060",
+            measurementId: "G-ZH1QS3W4ZD"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Handle login form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById("loginForm").addEventListener("submit", async function(event) {
+                event.preventDefault();
+
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+                const errorMessage = document.getElementById("error-message");
+                const submitButton = document.querySelector('.button-submit');
+                
+                // Disable button and show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = "Signing in...";
+
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                    window.location.href = "Tool.html";
+                } catch (error) {
+                    errorMessage.textContent = "Error: " + error.message;
+                    errorMessage.style.display = "block";
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Sign In";
+                }
+            });
+
+            // Check if user is already logged in
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    window.location.href = "Tool.html";
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="left">
             <form class="form" id="loginForm">
+                <h2 style="text-align: center; margin-bottom: 20px;">Welcome Back!</h2>
                 <div class="flex-column">
                     <label>Email</label>
                 </div>
                 <div class="inputForm">
-                    <input type="text" class="input" placeholder="Enter your Email" required>
+                    <input type="email" class="input" id="email" placeholder="Enter your Email" required>
                 </div>
                 <div class="flex-column">
                     <label>Password</label>
                 </div>
                 <div class="inputForm">
-                    <input type="password" class="input" placeholder="Enter your Password" required>
+                    <input type="password" class="input" id="password" placeholder="Enter your Password" required>
                 </div>
-                <button class="button-submit">Sign In</button>
+                <div class="flex-row">
+                    <span class="span" onclick="window.location.href='forgot-password.html'">Forgot Password?</span>
+                </div>
+                <button class="button-submit" type="submit">Sign In</button>
+                <div id="error-message" style="color: red; margin-top: 10px; display: none;"></div>
+                <div class="signup-link">
+                    Don't have an account? <a href="signup.html">Sign Up</a>
+                </div>
             </form>
-            
         </div>
         <div class="right"></div>
     </div>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission
-            // Redirect to Tool.html   
-            window.location.href = "Tool.html";
-            });
-    </script>
-    
 </body>
 </html>
