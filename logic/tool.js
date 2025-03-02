@@ -518,9 +518,23 @@ document.addEventListener("keydown", (event) => {
     const type = document.getElementById("type").value.trim();
     const subName = document.getElementById("subName").value.trim();
 
+    // Check required fields
+    if (!medicineName) {
+      alert("Medicine Name cannot be empty");
+      return;
+    }
+    if (!type) {
+      alert("Type cannot be empty"); 
+      return;
+    }
+
     /*===================================== the new date case =====================================*/
 
     const revisionDate = document.getElementById("revisionDate").value.trim();
+    if (!revisionDate) {
+      alert("Revision Date cannot be empty");
+      return;
+    }
     
     // Validate date format matches ISO 8601
     const iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/;
@@ -529,11 +543,10 @@ document.addEventListener("keydown", (event) => {
       return;
     }
 
-
   /*===============================================================================================*/
     // Collect sections
     const whatIsHTML = collectEditorSection("whatIsContainer");
-    const usageHTML = collectEditorSection("usageContainer");
+    const usageHTML = collectEditorSection("usageContainer"); 
     const warningsHTML = collectEditorSection("warningsContainer");
     const howToTakeHTML = collectEditorSection("howToTakeContainer");
     const doNotTakeHTML = collectEditorSection("doNotTakeContainer");
@@ -544,6 +557,55 @@ document.addEventListener("keydown", (event) => {
     const pregnancyHTML = collectEditorSection("pregnancyBreastfeedingFertilityContainer");
     const storageHTML = collectEditorSection("storageContainer");
     const contentsHTML = collectEditorSection("contentsContainer");
+
+    if (!whatIsHTML) {
+      alert("'What is' section cannot be empty");
+      return;
+    }
+    if (!usageHTML) {
+      alert("Usage section cannot be empty");
+      return;
+    }
+    if (!warningsHTML) {
+      alert("Warnings section cannot be empty");
+      return;
+    }
+    if (!howToTakeHTML) {
+      alert("How to take section cannot be empty");
+      return;
+    }
+    if (!doNotTakeHTML) {
+      alert("Do not take section cannot be empty");
+      return;
+    }
+    if (!sideEffectsHTML) {
+      alert("Side effects section cannot be empty");
+      return;
+    }
+    if (!veryCommonHTML) {
+      alert("Very common side effects section cannot be empty");
+      return;
+    }
+    if (!commonHTML) {
+      alert("Common side effects section cannot be empty");
+      return;
+    }
+    if (!veryRareHTML) {
+      alert("Very rare side effects section cannot be empty");
+      return;
+    }
+    if (!pregnancyHTML) {
+      alert("Pregnancy section cannot be empty");
+      return;
+    }
+    if (!storageHTML) {
+      alert("Storage section cannot be empty");
+      return;
+    }
+    if (!contentsHTML) {
+      alert("Contents section cannot be empty");
+      return;
+    }
 
     // Build combined table HTML from allTables
     let tableHTML = "";
