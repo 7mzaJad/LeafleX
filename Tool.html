@@ -1,12 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LeafleX – Prime: Box, Photos, Table Merge/Unmerge, HL7 ePI</title>
-
+  <title>LeafleX</title>
   <style>
-    /* ===================== GLOBAL RESET & BODY ===================== */
+    /* ========== GLOBAL RESET & BODY ========== */
     * {
       margin: 0;
       padding: 0;
@@ -14,16 +14,19 @@
     }
     body {
       font-family: 'Roboto', Arial, sans-serif;
-      background-color: #4169e1; /* brand color background */
+      background-color: #ffffff; /* brand color background */
       color: #1d1b1a;
       line-height: 1.6;
+    
       min-height: 100vh;
     }
+
+    /* ========== HEADER ========== */
     header {
       text-align: center;
       background-color: #fff;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
       margin-bottom: 20px;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
@@ -37,15 +40,16 @@
       margin-bottom: 10px;
     }
 
-    /* ===================== MAIN WRAPPER ===================== */
+    /* ========== MAIN WRAPPER ========== */
     main {
       max-width: 960px;
-      margin: 0 auto 40px;
+      margin: 0 auto 40px auto;
       padding: 30px;
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
+
     form label {
       display: block;
       font-weight: bold;
@@ -55,16 +59,20 @@
       font-size: 1.05rem;
     }
 
-    /* ===================== TEXT & FILE FIELDS ===================== */
-    form input[type="text"],
-    form input[type="number"] {
+    /* ========== TEXT FIELDS ========== */
+  
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="date"]   
+    {
       width: 100%;
       padding: 10px;
       border: 2px solid #4169e1;
       border-radius: 8px;
       font-size: 1rem;
-      outline: none;
       transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
     }
     form input[type="text"]:focus,
     form input[type="number"]:focus {
@@ -72,31 +80,7 @@
       box-shadow: 0 0 6px rgba(29,27,26,0.3);
     }
 
-    /* File inputs for Photos */
-    input[type="file"] {
-      background-color: #4169e1;
-      color: #fff;
-      padding: 8px;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    input[type="file"]::-webkit-file-upload-button {
-      background-color: #4169e1;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    input[type="file"]::-webkit-file-upload-button:hover {
-      background-color: #1d1b1a;
-    }
-
-    /* ===================== BUTTONS ===================== */
+    /* ========== BUTTONS ========== */
     form button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -113,6 +97,7 @@
       background-color: #1d1b1a;
       transform: translateY(-1px);
     }
+
     .add-btn {
       background-color: #4169e1;
       color: #fff;
@@ -131,7 +116,7 @@
       transform: translateY(-1px);
     }
 
-    /* ===================== SIZE FIELDS ===================== */
+    /* ========== SIZE FIELDS ========== */
     .size-container {
       position: relative;
       margin-bottom: 10px;
@@ -150,38 +135,41 @@
       line-height: 30px;
     }
 
-    /* ===================== EDITOR BLOCKS (B/I/U) ===================== */
+    /* ========== EDITOR BLOCKS ========== */
     .editor-block {
       border: 1px solid #ccc;
       border-radius: 8px;
       padding: 8px;
       margin-top: 12px;
-      margin-bottom: 10px;
       position: relative;
       background-color: #f9f9f9;
     }
     .remove-btn {
-      background-color: #d9d9d9;
-      color: #1d1b1a;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      text-align: center;
-      line-height: 28px;
-      transition: background-color 0.3s, transform 0.2s;
-      font-weight: bold;
-    }
-    .remove-btn:hover {
-      background-color: #1d1b1a;
-      color: #fff;
-      transform: translateY(-2px);
-    }
+  background: linear-gradient(to right, #f4f4f4, #f4f4f4); /* blue gradient */
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 6%;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 18%;
+  right: 1px; /* adjust overlap */
+  transform: translateY(-50%);
+  cursor: pointer;
+  
+  transition: background-color 0.3s, transform 0.2s;
+  margin: auto;
+}
+.remove-btn:hover {
+  background-color: #1d1b1a;
+  transform: translateY(-50%) scale(1.05);
+}
+
 
     .editor-toolbar {
       display: flex;
@@ -221,41 +209,11 @@
       outline: none;
     }
 
-    /* ===================== BOX FEATURE ===================== */
-    .box-block {
-      border: 1px solid #000;
-      border-radius: 6px;
-      padding: 8px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: #f9f9f9;
-      position: relative;
-    }
-    .box-block h4 {
-      margin-bottom: 6px;
-    }
-    .box-block .remove-btn {
-      top: 5px;
-      right: 5px;
-    }
-    .box-content {
-      min-height: 40px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 6px;
-    }
-
-    /* ===================== PHOTO FEATURE ===================== */
-    .photo-block {
-      margin-bottom: 10px;
-    }
-
-    /* ===================== TABLE MODAL ===================== */
+    /* ========== TABLE MODAL ========== */
     #tableModalOverlay {
-      display: none; /* hidden by default */
+      display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0; left: 0; right:0; bottom: 0;
       background-color: rgba(0,0,0,0.5);
       z-index: 9999;
       justify-content: center;
@@ -311,40 +269,17 @@
       background-color: #1d1b1a;
     }
 
-    /* TABLE EDITOR WRAPPER: with Merge/Unmerge */
+    /* TABLE EDITOR WRAPPER */
     .table-editor {
       margin-top: 10px;
-      padding: 10px;
-      margin-bottom: 15px;
-      position: relative;
-      border: 1px solid #ccc;
+      border: 2px dashed #ccc;
       border-radius: 8px;
-      background-color: #fff;
+      padding: 10px;
+      background-color: #f9f9f9;
     }
     .table-editor h3 {
       margin-bottom: 10px;
       color: #333;
-    }
-    .table-toolbar {
-      margin-bottom: 8px;
-    }
-    .table-toolbar button {
-      background-color: #f4f4f4;
-      color: #333;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      width: auto;
-      height: 30px;
-      margin-right: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      font-weight: bold;
-      position: relative;
-      padding: 0 10px;
-    }
-    .table-toolbar button:hover {
-      background-color: #e0e0e0;
-      transform: translateY(-1px);
     }
     .table-row {
       display: flex;
@@ -352,7 +287,6 @@
     }
     .table-cell {
       margin-right: 5px;
-      position: relative;
     }
     .table-cell input {
       width: 80px;
@@ -361,11 +295,8 @@
       border-radius: 4px;
       text-align: center;
     }
-    .table-cell input.sel-cell {
-      background-color: #ffe28c !important;
-    }
 
-    /* ===================== PREVIEW & DOWNLOAD ===================== */
+    /* ========== PREVIEW AREA ========== */
     pre {
       background: #f4f4f4;
       padding: 15px;
@@ -392,17 +323,31 @@
       background-color: #1d1b1a;
       transform: translateY(-1px);
     }
+
   </style>
 </head>
 <body>
+
+  <script>
+    // Disable Right Click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  
+    // Disable Keyboard Shortcuts
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "F12" || 
+         (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J')) || 
+         (event.ctrlKey && event.key === 'U')) {
+        event.preventDefault();
+      }
+    });
+  </script>
+  
   <header>
     <img src="Visuals/LeafleX Logo.png" alt="LeafleX Logo">
-    <h1>LeafleX – Prime, All Features Working</h1>
   </header>
 
   <main>
     <form id="pharmaForm">
-      <!-- =========== Basic Info =========== -->
       <label for="medicineName">Medicine Name:</label>
       <input type="text" id="medicineName" placeholder="e.g. Paracetamol" required />
 
@@ -412,7 +357,7 @@
       <label for="subName">Sub-Name:</label>
       <input type="text" id="subName" placeholder="Optional sub-name..." />
 
-      <!-- =========== Sizes =========== -->
+      <!-- SIZES -->
       <label>Sizes (mg):</label>
       <div id="sizesContainer">
         <div class="size-container">
@@ -422,129 +367,108 @@
       </div>
       <button type="button" class="add-btn" onclick="addSizeInput()">+ Add Size</button>
 
-      <!-- =========== 1) What is [Medicine]? =========== -->
+      <!-- 1) What is [MedicineName]? -->
       <label>1- What is [Medicine Name]?</label>
       <div id="whatIsContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('whatIsContainer', false)">+ Paragraph</button>
-      <button type="button" class="add-btn" onclick="addEditorBlock('whatIsContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('whatIsContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('whatIsContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('whatIsContainer')">+ Table</button>
 
-      <!-- =========== 2) Usage =========== -->
+      <!-- 2) usage -->
       <label>2- What is [Medicine Name] used for?</label>
       <div id="usageContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('usageContainer', false)">+ Paragraph</button>
-      <button type="button" class="add-btn" onclick="addEditorBlock('usageContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('usageContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('usageContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('usageContainer')">+ Table</button>
 
-      <!-- =========== Warnings =========== -->
+      <!-- Warnings -->
       <label>Warnings And Precautions</label>
       <div id="warningsContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('warningsContainer', false)">+ Paragraph</button>
       <button type="button" class="add-btn" onclick="addEditorBlock('warningsContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('warningsContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('warningsContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('warningsContainer')">+ Table</button>
 
-      <!-- =========== 3) How to Take =========== -->
-      <label>3- How to Take [Medicine Name]?</label>
+      <!-- 3) How to take + MULTIPLE TABLES feature -->
+      <label>3- How to Take [Medicine Name]:</label>
       <div id="howToTakeContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('howToTakeContainer', false)">+ Paragraph</button>
       <button type="button" class="add-btn" onclick="addEditorBlock('howToTakeContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('howToTakeContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('howToTakeContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('howToTakeContainer')">+ Table</button>
 
-      <!-- =========== doNotTake =========== -->
+      <!-- Where user-chosen tables will appear -->
+      <button type="button" class="add-btn" onclick="openTableEditor()">+ Table</button>
+      <div id="allTablesContainer"></div> <!-- multiple tables -->
+
+      <!-- doNotTake -->
       <label>Do not take [Medicine Name] if:</label>
       <div id="doNotTakeContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('doNotTakeContainer', false)">+ Paragraph</button>
       <button type="button" class="add-btn" onclick="addEditorBlock('doNotTakeContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('doNotTakeContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('doNotTakeContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('doNotTakeContainer')">+ Table</button>
 
-      <!-- =========== 4) sideEffects =========== -->
+      <!-- sideEffects -->
       <label>4- Possible side effects:</label>
       <div id="sideEffectsContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('sideEffectsContainer', false)">+ Paragraph</button>
       <button type="button" class="add-btn" onclick="addEditorBlock('sideEffectsContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('sideEffectsContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('sideEffectsContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('sideEffectsContainer')">+ Table</button>
 
       <label>Very Common Side Effects:</label>
       <div id="veryCommonContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('veryCommonContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('veryCommonContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('veryCommonContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('veryCommonContainer')">+ Table</button>
 
       <label>Common Side Effects:</label>
       <div id="commonContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('commonContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('commonContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('commonContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('commonContainer')">+ Table</button>
 
       <label>Very Rare Side Effects:</label>
       <div id="veryRareContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('veryRareContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('veryRareContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('veryRareContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('veryRareContainer')">+ Table</button>
 
       <label>Pregnancy, Breast-feeding, and Fertility:</label>
       <div id="pregnancyBreastfeedingFertilityContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('pregnancyBreastfeedingFertilityContainer', false)">+ Paragraph</button>
-      <button type="button" class="add-btn" onclick="addEditorBlock('pregnancyBreastfeedingFertilityContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('pregnancyBreastfeedingFertilityContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('pregnancyBreastfeedingFertilityContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('pregnancyBreastfeedingFertilityContainer')">+ Table</button>
 
-      <!-- =========== 5) Storage =========== -->
+      <!-- 5) Storage -->
       <label>5- How to store [Medicine Name]?</label>
       <div id="storageContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('storageContainer', false)">+ Paragraph</button>
       <button type="button" class="add-btn" onclick="addEditorBlock('storageContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('storageContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('storageContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('storageContainer')">+ Table</button>
 
-      <!-- =========== 6) Contents =========== -->
+      <!-- 6) Contents -->
       <label>6- Contents of the pack and other information:</label>
       <div id="contentsContainer"></div>
       <button type="button" class="add-btn" onclick="addEditorBlock('contentsContainer', false)">+ Paragraph</button>
       <button type="button" class="add-btn" onclick="addEditorBlock('contentsContainer', true)">+ Bullet</button>
-      <button type="button" class="add-btn" onclick="addBoxBlock('contentsContainer')">+ Box</button>
-      <button type="button" class="add-btn" onclick="addPhotoBlock('contentsContainer')">+ Photo</button>
-      <button type="button" class="add-btn" onclick="openTableEditor('contentsContainer')">+ Table</button>
 
-      <!-- =========== 7) Instructions with images =========== -->
+      <!-- 7) Instructions with images -->
       <label>7- Instructions For Use</label>
       <div id="instructionsForUseContainer"></div>
       <button type="button" class="add-btn" onclick="addInstructionStep()">+ Instruction Step</button>
 
-      <!-- =========== Revision Date =========== -->
-      <label for="revisionDate">Revision Date Using ISO 8601 Format For Jordan Timezone Use (+03:00) at the end of the date</label>
-      <input type="text" id="revisionDate" placeholder="2025-07-18T08:30:00+02:00" required />
+ <label for="companyName">Company Name:</label>
+<input type="text" id="companyName" placeholder="e.g. LeafleX Pharma Ltd." required />
 
-      <!-- =========== Generate =========== -->
+<label for="companyAddress">Company Address:</label>
+<input type="text" id="companyAddress" placeholder="e.g. 123 King Street, Amman, Jordan" required />
+
+<label for="companyPhone">Telephone:</label>
+<input type="text" id="companyPhone" placeholder="e.g. +962 6 555 1234" required />
+
+<label for="companyFax">Fax:</label>
+<input type="text" id="companyFax" placeholder="e.g. +962 6 555 5678" />
+
+<label for="companyEmail">Email:</label>
+<input type="email" id="companyEmail" placeholder="e.g. info@leaflex.com" required />
+
+
+      <label for="revisionDate">Revision Date (Month/Year):</label>
+      <input type="date" id="revisionDate" required />
+
+      <button type="button" onclick="openValidationPortal()">Validate XML at Leaflet Healthcare</button>
       <button type="button" onclick="generateXML()">Generate XML</button>
-      <button type="button" onclick="downloadXML()" id="downloadBtn">Download XML</button>
     </form>
 
-    <!-- =========== Output & Download =========== -->
     <pre id="xmlOutput"></pre>
+    <button id="downloadBtn" onclick="downloadXML()">Download XML</button>
   </main>
 
-  <!-- TABLE EDITOR MODAL -->
-  <div id="tableModalOverlay">
+  <!-- TABLE EDITOR MODAL (like your screenshot) -->
+  <div id="tableModalOverlay" style="display:none;">
     <div id="tableModal">
-      <h2 style="margin-bottom:10px;">Add Table</h2>
+      <h2 style="margin-bottom:10px; color:#4169e1;">Add Table</h2>
       <label for="rowsInput">Number of rows:</label>
       <input type="number" id="rowsInput" min="1" max="30" value="3">
       <label for="colsInput">Number of columns:</label>
@@ -556,6 +480,5 @@
   </div>
 
   <script src="logic/tool.js"></script>
-
 </body>
 </html>
